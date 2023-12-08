@@ -1,10 +1,12 @@
 import Fastify from 'fastify'
 import { PORT } from './config/config.js'
-import { routes } from './routes/routes.js'
+import dbConnector from './src/model/repository/db-connection.js'
+// import { routes } from './routes/routes.js'
 const fastify = Fastify({
   logger: true
 })
-fastify.register(routes)
+// fastify.register(routes)
+fastify.register(dbConnector)
 fastify.listen({
   port: PORT
 }, function (err, address) {

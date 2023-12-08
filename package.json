@@ -13,9 +13,12 @@
     "standard": "17.1.0"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard"
+    "extends": "./node_modules/standard/eslintrc.json"
   },
   "dependencies": {
-    "fastify": "4.24.3"
+    "@fastify/mongodb": "^8.0.0",
+    "dotenv": "^16.3.1",
+    "fastify": "4.24.3",
+    "fastify-plugin": "^4.5.1"
   }
 }
