@@ -1,0 +1,69 @@
+@font-face {
+  font-family: Comfortaa;
+  src: url(../Comfortaa/Comfortaa-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Poppins;
+  src: url(../Poppins/Poppins-Regular.ttf);
+}
+@font-face {
+  font-family: Noto-Sans;
+  src: url(/fonts/NotoSansJP-Regular.ttf);
+}
+:root {
+  --backGround-dark: #d2deec;
+  --main-color: #bb2658;
+  --text: #5f6877;
+  --font-size: x-large;
+  --font-size-medium: large;
+  --font-size-small: small;
+  --font-weight: 600;
+  --font-family: Noto-Sans;
+  --backGround-bright: #e5eef7;
+  --brShadow: 6px 6px 15px #9c9ea2;
+  --tlShadow: -6px -6px 15px #feffff;
+  --brShadow-small: 1px 1px 1px #9c9ea2;
+  --tlShadow-small: -1px -1px 1px #feffff;
+  --insetDarkShadow: #bfd0df;
+  --insetBrightShadow: #f0f5fa;
+  --darkShadow: #bac8d9;
+  --brightShadow: #dae4f1;
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  font-family: var(--font-family);
+}
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--backGround-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  color: var(--text);
+}
+.button {
+  width: fit-content;
+  height: 1.5rem;
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+}
+
+footer {
+  position: absolute;
+  width: 50vw;
+  height: 2rem;
+  display: flex;
+  font-size: medium;
+  justify-content: space-between;
+  align-items: center;
+  bottom: 0;
+}

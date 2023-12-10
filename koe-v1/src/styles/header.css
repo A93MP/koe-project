@@ -1,0 +1,13 @@
+.koe-head {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background: transparent;
+  text-align: center;
+  color: var(--main-color);
+  font-size: 2em;
+  font-weight: bold;
+  font-family: Poppins;
+  text-transform: uppercase;
+  text-shadow: var(--brShadow-small), var(--tlShadow-small);
+}
