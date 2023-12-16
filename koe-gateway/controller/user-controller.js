@@ -5,6 +5,7 @@ export const Login = async (req, res) => {
   const loginErrors = []
   // to do validate
   const login = await loginUser(userEmail, userPwd)
+  console.log(login)
   if (login.user !== null) {
     if (rememberMe) {
       // to do send token to redis

@@ -1,72 +1,45 @@
 import { NAV } from './src/components/config'
 import './src/styles/main.css'
 window.addEventListener('load', () => {
-  document.querySelector('#app').innerHTML = `
-<div id="loginFragment" class="login-fragment">
-      <div class="kanji">
-      声
-    </div>
-    <p id='formHeader'></p>
-    <form action="" id="loginForm" class="loginForm fade-in" autocomplete="off">
-        
-       
-      </form>
-     <button
-          id="loginBtn"
-          type="button"
-          class="large-button button-login"
-          >
-          <p>
-            Sign in
-          </p>
-        </button>
-        <div class='form-options'>
-            <a href="" id='swapView' class="small">Sign in now instead</a>
-          </div>
-       
-    </div>
-    <footer>
-      <span>&copy;2023</span><a href="">Koe Terms</a
-      ><a href="">Privacy Policy</a><a href="">Cookies Policy</a>
-    </footer>`
-  if (document.querySelector('#loginForm').childElementCount === 0) {
-    toggleLogin(NAV.default)
-    const swapViewButton = document.getElementById('swapView')
-    swapViewButton.addEventListener('click', (e) => {
-      e.preventDefault()
-      toggleLogin()
-    })
-  }
+  initKoe()
 })
 
-/**
- *
- * @param {String} dest
- * NAV.destination
- */
-export const toggleLogin = () => {
-  const form = document.querySelector('#loginForm')
-  const header = document.getElementById('formHeader')
+const initKoe = () => {
+  toggleView()
+  document.addEventListener('loginSuccess', (e) => { handleLogin(e) })
+}
 
-  form.classList.add('hidden')
-  form.classList.remove('fade-in')
-  header.classList.add('hidden')
-  header.classList.remove('fade-in')
+const handleLogin = (e) => {
+  const data = e.detail.user
+  // check if session is active and validate
+  toggleView(data)
+}
 
-  form.innerHTML = ''
-  let destination = NAV.login
-  const location = header.innerText
-
-  if (location === 'Login') {
-    destination = NAV.register
+const toggleView = (props) => {
+  let destination = NAV.index
+  // check for credentials, is user remembered? is session active? else...
+  if (props !== undefined) {
+    const { data } = props
+    if (data) {
+      destination = NAV.profile
+    }
   }
-
   import('./src/components/' + destination.file).then((module) => {
     const component = document.createElement(destination.name)
-    form.appendChild(component)
+    transition(true)
+    document.getElementById('app').innerHTML = ''
+    document.getElementById('app').appendChild(component)
+    transition(false)
   })
-  form.classList.add('fade-in')
-  form.classList.remove('hidden')
-  header.classList.add('fade-in')
-  header.classList.remove('hidden')
+}
+
+export const transition = (flag) => {
+  const app = document.getElementById('app')
+  if (flag) {
+    app.classList.add('hidden')
+    app.classList.remove('fade-in')
+  } else {
+    app.classList.add('fade-in')
+    app.classList.remove('hidden')
+  }
 }

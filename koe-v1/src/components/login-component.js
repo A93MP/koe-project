@@ -12,9 +12,19 @@ export class Login extends HTMLElement {
     this.render()
   }
 
+  disconnectedCallback () {
+    // problemita aqui al cambiar de index a profile
+    const index = document.querySelector('index-component')
+    index.submitBtn.removeEventListener('click', this.validateForm, false)
+  }
+
   render () {
     const styles = document.createElement('style')
     styles.innerHTML = style
+    const index = document.querySelector('index-component')
+    index.formHeader = 'Login'
+    index.submitBtnLabel = 'Sign in'
+
     this.shadowRoot.innerHTML = `
         <div class="input-container">
           <span
@@ -52,29 +62,38 @@ export class Login extends HTMLElement {
       
       `
     this.shadowRoot.appendChild(styles)
-    this.login()
+    this.initLogin()
   }
 
-  login = () => {
+  initLogin = () => {
     if (typeof window !== 'undefined') {
       const koeToken = localStorage.getItem('koeToken')
       if (koeToken === 'undefined' || koeToken === null) {
-        this.form()
+        this.initListeners()
       }
     }
   }
 
-  form = () => {
-    const header = document.getElementById('formHeader')
-    header.innerText = 'Login'
-    document.getElementById('loginBtn').innerText = 'Sign in'
-
+  initListeners = () => {
     const togglePwdButton = this.shadowRoot.getElementById('togglePwd')
     togglePwdButton.addEventListener('click', () =>
       this.togglePwdVisibility({ togglePwdButton })
     )
-    const submitButton = document.getElementById('loginBtn')
-    submitButton.addEventListener('click', this.validateForm)
+
+    const index = document.querySelector('index-component')
+    index.submitBtn.addEventListener('click', this.validateForm, false)
+  }
+
+  togglePwdVisibility = props => {
+    const { togglePwdButton } = props
+    const password = this.shadowRoot.getElementById('userPwd')
+    if (password.type === 'password') {
+      password.type = 'text'
+      togglePwdButton.innerText = 'Hide'
+    } else {
+      password.type = 'password'
+      togglePwdButton.innerText = 'Show'
+    }
   }
 
   validateForm = async () => {
@@ -88,17 +107,11 @@ export class Login extends HTMLElement {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     }).then(res => { return res.json() })
-  }
-
-  togglePwdVisibility = props => {
-    const { togglePwdButton } = props
-    const password = this.shadowRoot.getElementById('userPwd')
-    if (password.type === 'password') {
-      password.type = 'text'
-      togglePwdButton.innerText = 'Hide'
+    if (response.user !== '' && response.user !== null) {
+      const loginSuccessEvent = new CustomEvent('loginSuccess', { detail: { user: response.user.userName } })
+      document.dispatchEvent(loginSuccessEvent)
     } else {
-      password.type = 'password'
-      togglePwdButton.innerText = 'Show'
+      console.log(response.errors)
     }
   }
 }
