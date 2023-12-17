@@ -1,18 +1,10 @@
 @font-face {
-  font-family: Comfortaa;
-  src: url(../Comfortaa/Comfortaa-VariableFont_wght.ttf);
-}
-@font-face {
-  font-family: Poppins;
-  src: url(../Poppins/Poppins-Regular.ttf);
-}
-@font-face {
   font-family: Noto-Sans;
   src: url(/fonts/NotoSansJP-Regular.ttf);
 }
 :root {
   --backGround-dark: #d2deec;
-  --main-color: #bb2658;
+  --main-color: #bb2658;  
   --text: #5f6877;
   --font-size: x-large;
   --font-size-medium: large;
@@ -39,9 +31,12 @@
   margin: 0;
   padding: 0;
 }
-
-body {
+body{
   background-color: var(--backGround-dark);
+
+}
+
+#app {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,20 +45,12 @@ body {
   height: 100vh;
   color: var(--text);
 }
-.button {
-  width: fit-content;
-  height: 1.5rem;
-  font-size: var(--font-size);
-  font-weight: var(--font-weight);
+.fade-in{
+  opacity: 1;
+  transition: all 1s ease-out;
+}
+.hidden{
+  opacity:0;
+  pointer-events: none;
 }
 
-footer {
-  position: absolute;
-  width: 50vw;
-  height: 2rem;
-  display: flex;
-  font-size: medium;
-  justify-content: space-between;
-  align-items: center;
-  bottom: 0;
-}
