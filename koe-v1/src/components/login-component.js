@@ -13,9 +13,10 @@ export class Login extends HTMLElement {
   }
 
   disconnectedCallback () {
-    // problemita aqui al cambiar de index a profile
     const index = document.querySelector('index-component')
-    index.submitBtn.removeEventListener('click', this.validateForm, false)
+    if (index) {
+      index.submitBtn.removeEventListener('click', this.validateForm, false)
+    }
   }
 
   render () {

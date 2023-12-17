@@ -12,7 +12,7 @@ const initKoe = () => {
 const handleLogin = (e) => {
   const data = e.detail.user
   // check if session is active and validate
-  toggleView(data)
+  toggleView({ data })
 }
 
 const toggleView = (props) => {
@@ -20,7 +20,8 @@ const toggleView = (props) => {
   // check for credentials, is user remembered? is session active? else...
   if (props !== undefined) {
     const { data } = props
-    if (data) {
+    console.log(data)
+    if (data !== undefined) {
       destination = NAV.profile
     }
   }
